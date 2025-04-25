@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import.meta.env.VITE_WOOSMAP_API_KEY;
 
 // Custom hook to load Woosmap Map JS directly
 const useWoosmap = (apiKey) => {
@@ -42,7 +41,7 @@ const Map = () => {
   const [map, setMap] = useState(null);
   
   // Directly use the Map JS library with your API key
-  const isWoosmapLoaded = useWoosmap(VITE_WOOSMAP_API_KEY);
+  const isWoosmapLoaded = useWoosmap(import.meta.env.VITE_WOOSMAP_API_KEY);
   
   useEffect(() => {
     if (isWoosmapLoaded && mapContainerRef.current && !map) {
