@@ -41,7 +41,7 @@ const Map = () => {
   const [map, setMap] = useState(null);
   
   // Directly use the Map JS library with your API key
-  console.log(`API key: ${import.meta.env.VITE_WOOSMAP_API_KEY}`);
+  console.log('Available env vars:', import.meta.env);
   const isWoosmapLoaded = useWoosmap(import.meta.env.VITE_WOOSMAP_API_KEY);
   
   useEffect(() => {
