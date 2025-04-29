@@ -51,7 +51,7 @@ const Map = () => {
         // Create the map instance
         const mapInstance = new window.woosmap.map.Map(mapContainerRef.current, {
           center: { lat: 39.828, lng: -98.5795 },
-          zoom: 5
+          zoom: 4.8
         });
         
         console.log("Map initialized successfully");
@@ -91,8 +91,6 @@ const Map = () => {
         };
         const storesOverlay = new window.woosmap.map.StoresOverlay(style);
         storesOverlay.setMap(mapInstance);
-
-
 
         // Configure the click listener
         window.woosmap.map.event.addListener(
