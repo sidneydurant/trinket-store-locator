@@ -66,24 +66,63 @@ const Map = () => {
             size: 8,
             minSize: 1,
             icon: {
-              url: "https://images.woosmap.com/starbucks-marker.svg",
+              url: "/marker.svg",
               scaledSize: {
-                height: 40,
-                width: 34,
+                height: 20,
+                width: 20,
+              },
+              anchor: {
+                x: 10,
+                y: 10,
               },
             },
             selectedIcon: {
-              url: "https://images.woosmap.com/starbucks-marker-selected.svg",
+              url: "/marker.svg",
               scaledSize: {
-                height: 50,
-                width: 43,
+                height: 20,
+                width: 20,
+              },
+              anchor: {
+                x: 10,
+                y: 10,
               },
             },
           },
         };
-
         const storesOverlay = new window.woosmap.map.StoresOverlay(style);
         storesOverlay.setMap(mapInstance);
+
+
+
+        // Configure the click listener
+        window.woosmap.map.event.addListener(
+          mapInstance,
+          "store_selected",
+          (storeGeoJSON) => {
+            const getAddress = (store) =>
+              store.address.lines ? `${store.address.lines}, ${store.address.city}` : '';
+            const getPhone = (store) =>
+              store.contact.phone ? `Phone: ${store.contact.phone}` : '';
+
+            function getStoreHTML(store) {
+              return `<div class="info-bubble">
+                        <span><strong>${store.name}</strong></span>
+                        <p>${getAddress(store)}</p>
+                        <p>${getPhone(store)}</p>
+                      </div>`;
+            }
+
+            let infoWindow;
+            infoWindow = new window.woosmap.map.InfoWindow();
+            infoWindow.setContent(getStoreHTML(storeGeoJSON.properties));
+            infoWindow.open(mapInstance, {lng: storeGeoJSON.geometry.coordinates[0], lat: storeGeoJSON.geometry.coordinates[1]});
+
+            mapInstance.addListener('click', () => {
+              infoWindow.close();
+            });
+
+          },
+        );
 
       } catch (error) {
         console.error("Error initializing map:", error);
