@@ -50,7 +50,7 @@ const Map = () => {
       try {
         // Create the map instance
         const mapInstance = new window.woosmap.map.Map(mapContainerRef.current, {
-          center: { lat: 39.828, lng: -98.5795 },
+          center: { lat: 37.828, lng: -98.5795 },
           zoom: 4.8
         });
         
